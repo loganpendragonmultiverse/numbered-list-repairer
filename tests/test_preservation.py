@@ -23,5 +23,5 @@ def test_crlf_and_unclosed_fences_are_preserved() -> None:
     "extra", [{"text": []}, {"start": True}, {"restart_lines": [0]}, {"restart_lines": "1"}]
 )
 def test_bad_options(extra) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises((ValueError, TypeError)):
         analyze({"text": "1. A", **extra})

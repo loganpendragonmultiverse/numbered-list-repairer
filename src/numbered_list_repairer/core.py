@@ -18,7 +18,7 @@ def _require(data: dict[str, Any], key: str) -> Any:
 def _numbered_list(data: dict[str, Any]) -> dict[str, Any]:
     text = _require(data, "text")
     if not isinstance(text, str):
-        raise ValueError("text must be a string")
+        raise TypeError("text must be a string")
     start = data.get("start", 1)
     if not isinstance(start, int) or isinstance(start, bool) or start < 0:
         raise ValueError("start must be non-negative")
@@ -86,7 +86,7 @@ def _numbered_list(data: dict[str, Any]) -> dict[str, Any]:
 
 def analyze(data: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(data, dict):
-        raise ValueError("input must be a JSON object")
+        raise TypeError("input must be a JSON object")
     return {"version": 1, "project": PROJECT, **_numbered_list(data)}
 
 
