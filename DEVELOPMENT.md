@@ -18,8 +18,9 @@ Repair UTF-8 text and Markdown files directly while preserving their line ending
 
 Use `repair-numbering draft.md --format json` to inspect text changes, then `repair-numbering draft.md --format text --output repaired.md` for a new document. .txt, .md and .markdown are direct text; .json remains the existing specification format. --input-format overrides unknown extensions. --start and repeated --restart-line override corresponding JSON options when supplied. UTF-8 BOM input is accepted, original line endings are preserved, and existing outputs or the source are never replaced. This remains a conservative marker utility, not a complete CommonMark parser.
 
-## Gold Star review — October 17, 2026
+## Prior Gold Star review — October 17, 2026
 
+Previously reviewed release: v1.2.1.
 Fix numbered lists in text, Markdown or JSON without changing the original file.
 
 Logan considers this project complete. Continue fixes and maintenance, and consider good new ideas. The catalog records the reviewed release.
