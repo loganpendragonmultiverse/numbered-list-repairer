@@ -13,7 +13,11 @@
 - Save the repaired list as a new file or print it to the terminal.
 
 
-## Current release 1.2.0
+## Current release 1.2.1
+
+Renumber empty outline items along with filled items. For example, `7. One`, `8. ` and `9. Three` become `1. One`, `2. ` and `3. Three`. Empty markers retain their original following spaces or tabs, including a bare marker with no following space. Indentation, line endings, fenced code, quotations and source-file preservation keep their existing behavior. Filled items retain the existing normalized marker spacing.
+
+## Previous release 1.2.0
 
 Repair UTF-8 text and Markdown files directly while preserving their line endings and original source.
 
