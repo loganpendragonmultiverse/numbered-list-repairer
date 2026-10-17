@@ -29,3 +29,7 @@ Definition: https://www.loganpendragonforge.com/open-source/?gold=1
 ## 1.2.1 empty outline items
 
 Recognize and count common empty marker bodies, including a bare marker at end of line, without accepting attached nonempty text such as `1.word`. Preserve empty-item separator whitespace, indentation and original line endings; retain existing normalization for filled items. Verify an empty item between filled ones, mixed trailing spaces/tabs, nested/restarted lists, fenced-code/quote exclusion, direct UTF-8/BOM/CRLF CLI output, source hashes and existing text/JSON root contracts. No new CommonMark parser or continuation semantics are introduced.
+
+## 1.3.0 report controls
+
+Use `--check` (or `--fail-on-change`) to print the selected report and exit 1 when repairs are needed, 0 when unchanged, or 2 on an input/output error. Check mode rejects `--output` and leaves the source unchanged.

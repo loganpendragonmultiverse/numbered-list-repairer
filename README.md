@@ -13,7 +13,12 @@
 - Save the repaired list as a new file or print it to the terminal.
 
 
-## Current release 1.2.1
+## Current release 1.3.0
+
+Add `--check` / `--fail-on-change`: print the report and return 1 when repairs are needed, without creating an output file.
+Explicit backtick and tilde fences are preserved at any indentation, including fences nested under list items. List-like code inside those fences stays unchanged while surrounding list numbers are repaired. This does not add general Markdown interpretation.
+
+## Updates in 1.2.1
 
 Renumber empty outline items along with filled items. For example, `7. One`, `8. ` and `9. Three` become `1. One`, `2. ` and `3. Three`. Empty markers retain their original following spaces or tabs, including a bare marker with no following space. Indentation, line endings, fenced code, quotations and source-file preservation keep their existing behavior. Filled items retain the existing normalized marker spacing.
 
@@ -69,3 +74,7 @@ repair-numbering examples/sample.json --format json
 ```
 
 `restart_lines` is an optional array of one-based source line numbers that restart numbering at the configured `start`. Indentation levels maintain separate counters; tabs use four-column expansion for that calculation. Fenced code and blockquotes are left unchanged, as are unrecognized continuation paragraphs and original line endings. The `diff` field shows the exact before/after text. This is a conservative text utility, not a complete CommonMark parser: use explicit fenced code for code preservation and inspect the diff before applying it elsewhere.
+
+## 1.3.0 report controls
+
+Use `--check` (or `--fail-on-change`) to print the selected report and exit 1 when repairs are needed, 0 when unchanged, or 2 on an input/output error. Check mode rejects `--output` and leaves the source unchanged.

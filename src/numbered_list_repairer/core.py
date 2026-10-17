@@ -38,7 +38,7 @@ def _numbered_list(data: dict[str, Any]) -> dict[str, Any]:
     for line_number, original in enumerate(text.splitlines(keepends=True), 1):
         line = original.rstrip("\r\n")
         ending = original[len(line) :]
-        marker = re.match(r"^ {0,3}(`{3,}|~{3,})", line)
+        marker = re.match(r"^[ \t]*(`{3,}|~{3,})", line)
         if marker:
             if fence is None:
                 fence = marker.group(1)

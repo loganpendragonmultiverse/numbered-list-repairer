@@ -23,8 +23,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--format", choices=("markdown", "json", "text"), default="markdown")
     parser.add_argument("--output", type=Path)
+    parser.add_argument(
+        "--check",
+        "--fail-on-change",
+        action="store_true",
+        help="Report repairs without writing a file; exit 1 when changes are needed",
+    )
     args = parser.parse_args(argv)
     try:
+        if args.check and args.output:
+            raise ValueError("--check cannot be combined with --output")
         mode = args.input_format
         if mode == "auto":
             if args.input.suffix.lower() == ".json":
@@ -64,4 +72,4 @@ def main(argv: list[str] | None = None) -> int:
     except (OSError, UnicodeError, ValueError, TypeError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
-    return 0
+    return 1 if args.check and report["changes"] else 0

@@ -15,3 +15,13 @@ Verify Auto-detect JSON specifications or text/Markdown input by extension with 
 ## 1.2.1 empty outline items
 
 Recognize and count common empty marker bodies, including a bare marker at end of line, without accepting attached nonempty text such as `1.word`. Preserve empty-item separator whitespace, indentation and original line endings; retain existing normalization for filled items. Verify an empty item between filled ones, mixed trailing spaces/tabs, nested/restarted lists, fenced-code/quote exclusion, direct UTF-8/BOM/CRLF CLI output, source hashes and existing text/JSON root contracts. No new CommonMark parser or continuation semantics are introduced.
+
+## 1.3.0 regression acceptance
+
+Explicit backtick and tilde fences are preserved at any indentation, including fences nested under list items. List-like code inside those fences stays unchanged while surrounding list numbers are repaired. This does not add general Markdown interpretation.
+
+Run the new source and CLI regression cases with the complete existing quality gates. Recheck installed tag-built artifacts after review and release approval.
+
+## 1.3.0 report controls
+
+Use `--check` (or `--fail-on-change`) to print the selected report and exit 1 when repairs are needed, 0 when unchanged, or 2 on an input/output error. Check mode rejects `--output` and leaves the source unchanged.
