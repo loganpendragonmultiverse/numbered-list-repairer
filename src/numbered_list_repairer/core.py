@@ -28,7 +28,7 @@ def _numbered_list(data: dict[str, Any]) -> dict[str, Any]:
     ):
         raise ValueError("restart_lines must be an array of positive line numbers")
     pattern = re.compile(
-        "^(?P<indent>\\s*)(?:(?:\\d+|[A-Za-z]|[ivxlcdmIVXLCDM]+)[.)]|[-*+])\\s+(?P<body>.+)$"
+        "^(?P<indent>\\s*)(?:(?:\\d+|[A-Za-z]|[ivxlcdmIVXLCDM]+)[.)]|[-*+])(?P<spacing>\\s+|$)(?P<body>.*)$"
     )
     repaired = []
     changes = []
@@ -62,7 +62,9 @@ def _numbered_list(data: dict[str, Any]) -> dict[str, Any]:
         if line_number in restarts:
             counters[depth] = start
         number = counters.get(depth, start)
-        replacement = f"{match.group('indent')}{number}. {match.group('body')}"
+        body = match.group("body")
+        spacing = " " if body else match.group("spacing")
+        replacement = f"{match.group('indent')}{number}.{spacing}{body}"
         repaired.append(replacement + ending)
         if replacement != line:
             changes.append({"line": line_number, "before": line, "after": replacement})

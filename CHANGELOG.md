@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- Count and renumber empty outline items while preserving their trailing whitespace, indentation and line endings.
+- Preserve existing fence/quote exclusions, filled-item behavior and read-only source/new-output guarantees.
+
+
 ## 1.2.0 - 2026-10-17
 
 - Auto-detect JSON specifications or text/Markdown input by extension with an explicit override
