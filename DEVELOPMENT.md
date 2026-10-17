@@ -18,8 +18,9 @@ Repair UTF-8 text and Markdown files directly while preserving their line ending
 
 Use `repair-numbering draft.md --format json` to inspect text changes, then `repair-numbering draft.md --format text --output repaired.md` for a new document. .txt, .md and .markdown are direct text; .json remains the existing specification format. --input-format overrides unknown extensions. --start and repeated --restart-line override corresponding JSON options when supplied. UTF-8 BOM input is accepted, original line endings are preserved, and existing outputs or the source are never replaced. This remains a conservative marker utility, not a complete CommonMark parser.
 
-## Gold Star review — October 17, 2026
+## Prior Gold Star review — October 17, 2026
 
+Previously reviewed release: v1.2.1.
 Fix numbered lists in text, Markdown or JSON without changing the original file.
 
 Logan considers this project complete. Continue fixes and maintenance, and consider good new ideas. The catalog records the reviewed release.
@@ -29,3 +30,7 @@ Definition: https://www.loganpendragonforge.com/open-source/?gold=1
 ## 1.2.1 empty outline items
 
 Recognize and count common empty marker bodies, including a bare marker at end of line, without accepting attached nonempty text such as `1.word`. Preserve empty-item separator whitespace, indentation and original line endings; retain existing normalization for filled items. Verify an empty item between filled ones, mixed trailing spaces/tabs, nested/restarted lists, fenced-code/quote exclusion, direct UTF-8/BOM/CRLF CLI output, source hashes and existing text/JSON root contracts. No new CommonMark parser or continuation semantics are introduced.
+
+## 1.3.0 report controls
+
+Use `--check` (or `--fail-on-change`) to print the selected report and exit 1 when repairs are needed, 0 when unchanged, or 2 on an input/output error. Check mode rejects `--output` and leaves the source unchanged.

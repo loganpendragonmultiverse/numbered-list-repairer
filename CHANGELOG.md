@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 - 2026-10-17
+
+- Add `--check` / `--fail-on-change`: print the report and return 1 when repairs are needed, without creating an output file.
+- Explicit backtick and tilde fences are preserved at any indentation, including fences nested under list items. List-like code inside those fences stays unchanged while surrounding list numbers are repaired. This does not add general Markdown interpretation.
+
 ## 1.2.1
 
 - Count and renumber empty outline items while preserving their trailing whitespace, indentation and line endings.
