@@ -1,5 +1,11 @@
 # Numbered List Repairer
 
+## Current release 1.2.0
+
+Repair UTF-8 text and Markdown files directly while preserving their line endings and original source.
+
+Use `repair-numbering draft.md --format json` to inspect text changes, then `repair-numbering draft.md --format text --output repaired.md` for a new document. .txt, .md and .markdown are direct text; .json remains the existing specification format. --input-format overrides unknown extensions. --start and repeated --restart-line override corresponding JSON options when supplied. UTF-8 BOM input is accepted, original line endings are preserved, and existing outputs or the source are never replaced. This remains a conservative marker utility, not a complete CommonMark parser.
+
 [![CI](https://github.com/loganpendragonmultiverse/numbered-list-repairer/actions/workflows/ci.yml/badge.svg)](https://github.com/loganpendragonmultiverse/numbered-list-repairer/actions/workflows/ci.yml)
 
 Repair skipped, duplicated, malformed, or mixed list numbering while preserving item text. The command uses explicit UTF-8 JSON input and produces reviewable JSON or Markdown output.
