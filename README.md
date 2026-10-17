@@ -1,5 +1,11 @@
 # Numbered List Repairer
 
+> ⭐ **Gold Star Project — finished for its intended scope.**
+> Scope reviewed for **v1.2.0** on **2026-10-17**. Actively maintained; meaningful future development can reopen the scope.
+> [What Gold Star means](https://www.loganpendragonforge.com/open-source/gold-star/)
+>
+> Conservative numbered-list repair from JSON, text and Markdown while preserving content and source files.
+
 ## Current release 1.2.0
 
 Repair UTF-8 text and Markdown files directly while preserving their line endings and original source.
