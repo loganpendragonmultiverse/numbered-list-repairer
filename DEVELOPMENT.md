@@ -18,10 +18,10 @@ Repair UTF-8 text and Markdown files directly while preserving their line ending
 
 Use `repair-numbering draft.md --format json` to inspect text changes, then `repair-numbering draft.md --format text --output repaired.md` for a new document. .txt, .md and .markdown are direct text; .json remains the existing specification format. --input-format overrides unknown extensions. --start and repeated --restart-line override corresponding JSON options when supplied. UTF-8 BOM input is accepted, original line endings are preserved, and existing outputs or the source are never replaced. This remains a conservative marker utility, not a complete CommonMark parser.
 
-## Gold Star scope review — 2026-10-17
+## Gold Star review — October 17, 2026
 
-Reviewed release: v1.2.0. Conservative numbered-list repair from JSON, text and Markdown while preserving content and source files.
+Fix numbered lists in text, Markdown or JSON without changing the original file.
 
-The identified useful scope gaps have been implemented and verified. This review found no remaining meaningful contribution inside the documented purpose; optionality alone is not a reason to exclude a useful in-scope feature. Bugs, compatibility and dependency maintenance remain active work, and a meaningful new idea can reopen the scope. Gold status is bound to the reviewed release in the Forge catalog. Reassess or remove that status when a new gap is identified.
+Logan considers this project complete. Continue fixes and maintenance, and consider good new ideas. The catalog records the reviewed release.
 
-Definition: https://www.loganpendragonforge.com/open-source/gold-star/
+Definition: https://www.loganpendragonforge.com/open-source/?gold=1

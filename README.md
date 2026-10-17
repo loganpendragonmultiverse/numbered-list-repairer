@@ -1,10 +1,17 @@
 # Numbered List Repairer
 
-> ⭐ **Gold Star Project — finished for its intended scope.**
-> Scope reviewed for **v1.2.0** on **2026-10-17**. Actively maintained; meaningful future development can reopen the scope.
-> [What Gold Star means](https://www.loganpendragonforge.com/open-source/gold-star/)
+> ⭐ **Gold Star Project**
+> I consider this project complete. Fixes, maintenance and good new ideas are still welcome.
+> [About Gold Stars](https://www.loganpendragonforge.com/open-source/?gold=1)
 >
-> Conservative numbered-list repair from JSON, text and Markdown while preserving content and source files.
+> Fix numbered lists in text, Markdown or JSON without changing the original file.
+
+## What you can do
+
+- Choose a starting number and when numbering should restart.
+- Keep item text, line endings and fenced code intact.
+- Save the repaired list as a new file or print it to the terminal.
+
 
 ## Current release 1.2.0
 
@@ -49,7 +56,7 @@ The project is feature-complete for its documented v1 scope. Maintenance focuses
 
 Part of the [Logan Pendragon Forge open-source collection](https://www.loganpendragonforge.com/open-source/). Licensed under the [MIT License](LICENSE).
 
-## Version 1.1.0: reviewed improvements
+## Updates in 1.1.0
 
 Add exact text diffs, nested numbering and explicit restarts while preserving fences, quotations, continuations and line endings.
 
