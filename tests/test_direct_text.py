@@ -20,7 +20,7 @@ def test_direct_markdown_preserves_bytes_and_writes_new_text(tmp_path: Path, cap
 
 def test_explicit_mode_start_restart_and_invalid_options(tmp_path: Path, capsys):
     path = tmp_path / "input.custom"
-    path.write_text("7. One\n8. Two\n9. Three")
+    path.write_bytes(b"7. One\n8. Two\n9. Three")
     assert main([str(path)]) == 2
     assert (
         main(
@@ -43,3 +43,26 @@ def test_explicit_mode_start_restart_and_invalid_options(tmp_path: Path, capsys)
     assert main([str(path), "--input-format", "text", "--restart-line", "0"]) == 2
     path.write_text("")
     assert main([str(path), "--input-format", "text"]) == 2
+
+
+def test_raw_stdout_preserves_line_endings_in_a_real_process(tmp_path: Path):
+    import subprocess
+    import sys
+
+    for newline in (b"\n", b"\r\n"):
+        path = tmp_path / "input.txt"
+        path.write_bytes(newline.join((b"7. One", b"8. Two")) + newline)
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                "import sys; from numbered_list_repairer.cli import main; sys.exit(main())",
+                str(path),
+                "--format",
+                "text",
+            ],
+            capture_output=True,
+            check=False,
+        )
+        assert result.returncode == 0, result.stderr
+        assert result.stdout == newline.join((b"1. One", b"2. Two")) + newline

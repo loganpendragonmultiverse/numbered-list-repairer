@@ -56,7 +56,11 @@ def main(argv: list[str] | None = None) -> int:
             with args.output.open("x", encoding="utf-8", newline="") as output_file:
                 output_file.write(rendered)
         else:
-            sys.stdout.write(rendered)
+            stream = getattr(sys.stdout, "buffer", None)
+            if args.format == "text" and stream is not None:
+                stream.write(rendered.encode("utf-8"))
+            else:
+                sys.stdout.write(rendered)
     except (OSError, UnicodeError, ValueError, TypeError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

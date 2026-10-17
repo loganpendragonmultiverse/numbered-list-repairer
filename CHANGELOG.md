@@ -15,3 +15,5 @@
 
 - Released the first complete Numbered List Repairer command-line workflow.
 - Added deterministic reporting, representative examples, cross-platform tests, and explicit limitations.
+
+Raw text written to stdout preserves LF or CRLF bytes on Windows as well as Unix; subprocess regressions exercise both line endings.
