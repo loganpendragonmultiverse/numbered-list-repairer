@@ -25,6 +25,7 @@ def test_normal_stdout_is_complete_and_preserves_input(tmp_path, large, format_n
         [sys.executable, "-m", "numbered_list_repairer", *map(str, args)],
         capture_output=True,
         check=False,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
     )
     assert result.returncode == 0, result.stderr
     assert not result.stderr
@@ -52,6 +53,7 @@ def test_closed_stdout_pipe_returns_two_without_shutdown_warning(tmp_path, large
             stdout=writer,
             stderr=subprocess.PIPE,
             check=False,
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
         )
     finally:
         os.close(writer)
@@ -135,4 +137,21 @@ def test_raw_text_keeps_strict_utf8_errors_for_json_surrogates(tmp_path):
     assert result.returncode == 2
     assert result.stdout == b""
     assert b"error:" in result.stderr and b"Exception ignored" not in result.stderr
+    assert source.read_bytes() == before
+
+
+def test_json_stdout_encoding_failure_is_clean_and_preserves_input(tmp_path):
+    source, args = invocation(tmp_path, False)
+    before = source.read_bytes()
+    result = subprocess.run(
+        [sys.executable, "-m", "numbered_list_repairer", *map(str, args)],
+        capture_output=True,
+        check=False,
+        env={**os.environ, "PYTHONIOENCODING": "ascii:strict"},
+    )
+    assert result.returncode == 2
+    assert result.stdout == b""
+    assert b"error:" in result.stderr
+    assert b"Exception ignored" not in result.stderr
+    assert b"Traceback" not in result.stderr
     assert source.read_bytes() == before
