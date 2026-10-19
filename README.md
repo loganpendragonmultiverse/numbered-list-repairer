@@ -78,3 +78,7 @@ repair-numbering examples/sample.json --format json
 ## 1.3.0 report controls
 
 Use `--check` (or `--fail-on-change`) to print the selected report and exit 1 when repairs are needed, 0 when unchanged, or 2 on an input/output error. Check mode rejects `--output` and leaves the source unchanged.
+
+## Changes prepared for 1.3.1
+
+Failed stdout writes, including a closed pipe, return exit status 2 with an error diagnostic. Normal report contents and existing file-preservation behavior are unchanged.

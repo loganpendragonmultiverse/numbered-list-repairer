@@ -1,11 +1,35 @@
 from __future__ import annotations
 
 import argparse
+import io
 import json
+import os
 import sys
 from pathlib import Path
 
 from .core import analyze, render_json, render_markdown
+
+
+def _write_stdout(rendered: str, *, raw_text: bool = False) -> None:
+    """Deliver report bytes without leaving a failed buffered write for shutdown."""
+    try:
+        descriptor = sys.stdout.fileno()
+    except (AttributeError, io.UnsupportedOperation):
+        stream = getattr(sys.stdout, "buffer", None) if raw_text else None
+        if stream is not None:
+            stream.write(rendered.encode("utf-8"))
+            stream.flush()
+        else:
+            sys.stdout.write(rendered)
+            sys.stdout.flush()
+        return
+    encoding = "utf-8" if raw_text else sys.stdout.encoding or "utf-8"
+    pending = memoryview(rendered.encode(encoding, sys.stdout.errors or "strict"))
+    while pending:
+        written = os.write(descriptor, pending)
+        if written <= 0:
+            raise OSError("stdout accepted no report bytes")
+        pending = pending[written:]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -64,11 +88,7 @@ def main(argv: list[str] | None = None) -> int:
             with args.output.open("x", encoding="utf-8", newline="") as output_file:
                 output_file.write(rendered)
         else:
-            stream = getattr(sys.stdout, "buffer", None)
-            if args.format == "text" and stream is not None:
-                stream.write(rendered.encode("utf-8"))
-            else:
-                sys.stdout.write(rendered)
+            _write_stdout(rendered, raw_text=args.format == "text")
     except (OSError, UnicodeError, ValueError, TypeError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

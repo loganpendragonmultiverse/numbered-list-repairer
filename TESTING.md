@@ -25,3 +25,7 @@ Run the new source and CLI regression cases with the complete existing quality g
 ## 1.3.0 report controls
 
 Use `--check` (or `--fail-on-change`) to print the selected report and exit 1 when repairs are needed, 0 when unchanged, or 2 on an input/output error. Check mode rejects `--output` and leaves the source unchanged.
+
+## 1.3.1 stdout regression acceptance
+
+Exercise real closed stdout pipes with small and large reports, complete normal output, partial and zero descriptor writes, and in-memory streams. Verify status 2 without an ignored shutdown exception, unchanged source files, and existing report and output-file contracts.
