@@ -24,7 +24,9 @@ def _write_stdout(rendered: str, *, raw_text: bool = False) -> None:
             sys.stdout.flush()
         return
     encoding = "utf-8" if raw_text else sys.stdout.encoding or "utf-8"
-    pending = memoryview(rendered.encode(encoding, sys.stdout.errors or "strict"))
+    pending = memoryview(
+        rendered.encode(encoding, "strict" if raw_text else sys.stdout.errors or "strict")
+    )
     while pending:
         written = os.write(descriptor, pending)
         if written <= 0:

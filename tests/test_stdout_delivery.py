@@ -120,3 +120,19 @@ def test_raw_text_stdout_keeps_utf8_with_non_utf8_terminal(monkeypatch):
     monkeypatch.setattr(os, "write", write)
     _write_stdout("1. Ω\r\n", raw_text=True)
     assert received == "1. Ω\r\n".encode()
+
+
+def test_raw_text_keeps_strict_utf8_errors_for_json_surrogates(tmp_path):
+    source = tmp_path / "input.json"
+    source.write_text(json.dumps({"text": "9. " + chr(0xDC80)}), encoding="utf-8")
+    before = source.read_bytes()
+    result = subprocess.run(
+        [sys.executable, "-m", "numbered_list_repairer", str(source), "--format", "text"],
+        capture_output=True,
+        check=False,
+        env={**os.environ, "PYTHONIOENCODING": "ascii:surrogateescape"},
+    )
+    assert result.returncode == 2
+    assert result.stdout == b""
+    assert b"error:" in result.stderr and b"Exception ignored" not in result.stderr
+    assert source.read_bytes() == before
