@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 - 2026-10-19
+
+- Return exit status 2 for failed stdout writes, including closed pipes, without an extra interpreter shutdown warning.
+
 ## 1.3.0 - 2026-10-17
 
 - Add `--check` / `--fail-on-change`: print the report and return 1 when repairs are needed, without creating an output file.

@@ -13,7 +13,11 @@
 - Save the repaired list as a new file or print it to the terminal.
 
 
-## Current release 1.3.0
+## Prepared release 1.3.1 — 2026-10-19
+
+Failed stdout writes, including a closed pipe, return exit status 2 with an error diagnostic. Normal report contents and existing file-preservation behavior are unchanged.
+
+## Updates in 1.3.0
 
 Add `--check` / `--fail-on-change`: print the report and return 1 when repairs are needed, without creating an output file.
 Explicit backtick and tilde fences are preserved at any indentation, including fences nested under list items. List-like code inside those fences stays unchanged while surrounding list numbers are repaired. This does not add general Markdown interpretation.
